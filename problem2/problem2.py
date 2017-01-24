@@ -28,7 +28,7 @@ def parse_args():
     parser.add_argument('--img_height', type=int, nargs='?', default=600,
                         help='Height of images. The images will be resized.')
 
-    parser.add_argument('--epoch', type=int, nargs='?', default=20,
+    parser.add_argument('--epoch', type=int, nargs='?', default=50,
                         help='Number of training epoch.')
 
     parser.add_argument('--train_data', nargs='?', default='Train',
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    if len(layer_size) > 1:
+    if len(layer_sizes) > 1:
         for i in range (len(layer_sizes) - 1):
             model.add(Convolution2D(layer_sizes[i+1], 3, 3))
             model.add(Activation('relu'))
