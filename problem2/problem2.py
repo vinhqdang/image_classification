@@ -52,6 +52,9 @@ def parse_args():
     parser.add_argument('--metrics', nargs='?', default='fbeta_score',
                         help='Metric used to evaluate the method.')
 
+    parser.add_argument('--optimizer', nargs='?', default='rmsprop',
+                        help='Optimization method.')
+
     parser.add_argument('--plot', nargs='?', default='model.png',
                         help='Output plot file name.')
 
@@ -88,7 +91,7 @@ if __name__ == "__main__":
     model.add(Activation('sigmoid'))
 
     model.compile(loss='binary_crossentropy',
-                  optimizer='rmsprop',
+                  optimizer=args.optimizer,
                   metrics=[args.metrics])
 
     # this is the augmentation configuration we will use for training
