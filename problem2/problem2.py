@@ -16,13 +16,19 @@ def parse_args():
     parser.add_argument('--rescale', nargs='?', default=1.0/255,
                         help='Rescaling factor.')
 
-    parser.add_argument('--train_sample_per_epoch', nargs='?', default=552,
+    parser.add_argument('--train_sample_per_epoch', type=int, nargs='?', default=552,
                         help='Number of training samples used for training per epoch.')
 
-    parser.add_argument('--test_sample_per_epoch', nargs='?', default=2192,
+    parser.add_argument('--test_sample_per_epoch', type=int, nargs='?', default=2192,
                         help='Number of training samples used for testing per epoch.')
 
-    parser.add_argument('--epoch', nargs='?', default=20,
+    parser.add_argument('--img_width', type=int, nargs='?', default=800,
+                        help='Width of images. The images will be resized.')
+
+    parser.add_argument('--img_height', type=int, nargs='?', default=600,
+                        help='Height of images. The images will be resized.')
+
+    parser.add_argument('--epoch', type=int, nargs='?', default=20,
                         help='Number of training epoch.')
 
     parser.add_argument('--train_data', nargs='?', default='Train',
@@ -31,7 +37,7 @@ def parse_args():
     parser.add_argument('--test_data', nargs='?', default='Test',
                         help='Test directory.')
 
-    parser.add_argument('--batch_size', nargs='?', default=32,
+    parser.add_argument('--batch_size', type=int, nargs='?', default=32,
                         help='Batch size')
 
     parser.add_argument('--metrics', nargs='?', default='fbeta_score',
@@ -44,9 +50,6 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-
-    # dimensions of our images.
-    img_width, img_height = 600, 600
 
     train_data_dir = args.train_data
     validation_data_dir = args.test_data
@@ -89,13 +92,13 @@ if __name__ == "__main__":
 
     train_generator = train_datagen.flow_from_directory(
             train_data_dir,
-            target_size=(img_width, img_height),
+            target_size=(args.img_width, args.img_height),
             batch_size=args.batch_size,
             class_mode='binary')
 
     validation_generator = test_datagen.flow_from_directory(
             validation_data_dir,
-            target_size=(img_width, img_height),
+            target_size=(args.img_width, args.img_height),
             batch_size=args.batch_size,
             class_mode='binary')
 
