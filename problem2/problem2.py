@@ -58,6 +58,9 @@ def parse_args():
     parser.add_argument('--optimizer', nargs='?', default='rmsprop',
                         help='Optimization method.')
 
+    parser.add_argument('--class_weight', type=float, nargs='?', default=19,
+                        help='Weight of first class')
+
     parser.add_argument('--plot', nargs='?', default='model.png',
                         help='Output plot file name.')
 
@@ -126,7 +129,7 @@ if __name__ == "__main__":
             class_mode='binary')
 
     # to deal with imbalanced dataset
-    class_weight = {0:95,1:5}
+    class_weight = {0:1,1:args.class_weight}
     model.fit_generator(
             train_generator,
             samples_per_epoch=args.train_sample_per_epoch,
