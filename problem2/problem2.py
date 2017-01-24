@@ -97,6 +97,9 @@ if __name__ == "__main__":
     # this is the augmentation configuration we will use for training
     train_datagen = ImageDataGenerator(
             rescale=args.rescale,
+            rotation_range=90,
+            width_shift_range=0.2,
+            height_shift_range=0.2,
             shear_range=0.2,
             zoom_range=0.2,
             horizontal_flip=True)
