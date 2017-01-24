@@ -49,8 +49,11 @@ def parse_args():
     parser.add_argument('--l2', type=float, nargs='?', default=0.0001,
                         help='l2 regularization.')
 
-    parser.add_argument('--metrics', nargs='?', default='fbeta_score',
+    parser.add_argument('--metrics', nargs='?', default='accuracy,fmeasure',
                         help='Metric used to evaluate the method.')
+
+    parser.add_argument('--loss', nargs='?', default='binary_crossentropy',
+                        help='Objective function.')
 
     parser.add_argument('--optimizer', nargs='?', default='rmsprop',
                         help='Optimization method.')
@@ -90,9 +93,11 @@ if __name__ == "__main__":
     model.add(Dense(1, W_regularizer=l2(args.l2), activity_regularizer=activity_l2(args.l2)))
     model.add(Activation('sigmoid'))
 
-    model.compile(loss='binary_crossentropy',
+    metrics = [args.metrics.split(',')]
+
+    model.compile(loss=args.loss,
                   optimizer=args.optimizer,
-                  metrics=[args.metrics])
+                  metrics=metrics)
 
     # this is the augmentation configuration we will use for training
     train_datagen = ImageDataGenerator(
