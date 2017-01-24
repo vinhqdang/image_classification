@@ -65,7 +65,7 @@ if __name__ == "__main__":
     model.add(Dense(64))
     model.add(Activation('relu'))
     model.add(Dropout(0.5))
-    model.add(Dense(1), W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01))
+    model.add(Dense(1, W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01)))
     model.add(Activation('sigmoid'))
 
     model.compile(loss='binary_crossentropy',
