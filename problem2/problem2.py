@@ -37,14 +37,23 @@ def parse_args():
     parser.add_argument('--test_data', nargs='?', default='Test',
                         help='Test directory.')
 
+    parser.add_argument('--layer_size', nargs='?', default='32,32,64',
+                        help='Size of each layer.')
+
+    parser.add_argument('--dropout', type=float, nargs='?', default=0.5,
+                        help='Dropout ratio.')
+
     parser.add_argument('--batch_size', type=int, nargs='?', default=32,
-                        help='Batch size')
+                        help='Batch size.')
+
+    parser.add_argument('--l2', type=float, nargs='?', default=0.0001,
+                        help='l2 regularization.')
 
     parser.add_argument('--metrics', nargs='?', default='fbeta_score',
-                        help='Batch size')
+                        help='Metric used to evaluate the method.')
 
     parser.add_argument('--plot', nargs='?', default='model.png',
-                        help='Output plot file name. Temporary disabled.')
+                        help='Output plot file name.')
 
     return parser.parse_args()
 
@@ -54,25 +63,28 @@ if __name__ == "__main__":
     train_data_dir = args.train_data
     validation_data_dir = args.test_data
 
+    try:
+        layer_sizes = [int(x) for x in args.layer_size.split(',')]
+    except Exception, e:
+        raise e    
+
     # Model settings
     model = Sequential()
-    model.add(Convolution2D(32, 3, 3, input_shape=(3, args.img_width, args.img_height)))
+    model.add(Convolution2D(layer_sizes[0], 3, 3, input_shape=(3, args.img_width, args.img_height)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(Convolution2D(32, 3, 3))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-
-    model.add(Convolution2D(64, 3, 3))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
+    if len(layer_size) > 1:
+        for i in range (len(layer_sizes) - 1):
+            model.add(Convolution2D(layer_sizes[i+1], 3, 3))
+            model.add(Activation('relu'))
+            model.add(MaxPooling2D(pool_size=(2, 2)))
 
     model.add(Flatten())
     model.add(Dense(64))
     model.add(Activation('relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(1, W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01)))
+    model.add(Dropout(args.dropout))
+    model.add(Dense(1, W_regularizer=l2(args.l2), activity_regularizer=activity_l2(args.l2)))
     model.add(Activation('sigmoid'))
 
     model.compile(loss='binary_crossentropy',
