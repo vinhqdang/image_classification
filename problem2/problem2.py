@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     # Model settings
     model = Sequential()
-    model.add(Convolution2D(32, 3, 3, input_shape=(3, img_width, img_height)))
+    model.add(Convolution2D(32, 3, 3, input_shape=(3, args.img_width, args.img_height)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
