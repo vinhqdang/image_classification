@@ -5,7 +5,7 @@ from keras.models import Sequential
 from keras.layers import Convolution2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.regularizers import l2, activity_l2, l1, activity_l1
-# from keras.utils.visualize_util import plot
+from keras.utils.visualize_util import plot
 
 def parse_args():
     '''
@@ -22,7 +22,7 @@ def parse_args():
     parser.add_argument('--test_sample_per_epoch', type=int, nargs='?', default=2192,
                         help='Number of training samples used for testing per epoch.')
 
-    parser.add_argument('--img_width', type=int, nargs='?', default=800,
+    parser.add_argument('--img_width', type=int, nargs='?', default=600,
                         help='Width of images. The images will be resized.')
 
     parser.add_argument('--img_height', type=int, nargs='?', default=600,
@@ -109,5 +109,5 @@ if __name__ == "__main__":
             validation_data=validation_generator,
             nb_val_samples=args.test_sample_per_epoch)
 
-    # # save model plot
-    # plot(model, to_file=args.plot)
+    # save model plot
+    plot(model, to_file=args.plot)
