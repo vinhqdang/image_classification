@@ -11,7 +11,7 @@ train_data_dir = 'Train'
 validation_data_dir = 'Test'
 nb_train_samples = 552
 nb_validation_samples = 2192
-nb_epoch = 50
+nb_epoch = 20
 
 
 model = Sequential()
@@ -36,7 +36,7 @@ model.add(Activation('sigmoid'))
 
 model.compile(loss='binary_crossentropy',
               optimizer='rmsprop',
-              metrics=['accuracy'])
+              metrics=['fbeta_score'])
 
 # this is the augmentation configuration we will use for training
 train_datagen = ImageDataGenerator(
