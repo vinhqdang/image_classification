@@ -117,12 +117,15 @@ if __name__ == "__main__":
             batch_size=args.batch_size,
             class_mode='binary')
 
+    # to deal with imbalanced dataset
+    class_weight = {0:95,1:5}
     model.fit_generator(
             train_generator,
             samples_per_epoch=args.train_sample_per_epoch,
             nb_epoch=args.epoch,
             validation_data=validation_generator,
-            nb_val_samples=args.test_sample_per_epoch)
+            nb_val_samples=args.test_sample_per_epoch,
+            class_weight=class_weight)
 
     # save model plot
     plot(model, to_file=args.plot)
