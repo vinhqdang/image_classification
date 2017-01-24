@@ -2,6 +2,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Convolution2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
+from keras.regularizers import l2, activity_l2, l1, activity_l1
 
 def parse_args():
     '''
@@ -62,7 +63,7 @@ if __name__ == "__main__":
     model.add(Dense(64))
     model.add(Activation('relu'))
     model.add(Dropout(0.5))
-    model.add(Dense(1))
+    model.add(Dense(1), W_regularizer=l2(0.01), activity_regularizer=activity_l2(0.01))
     model.add(Activation('sigmoid'))
 
     model.compile(loss='binary_crossentropy',
