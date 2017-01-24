@@ -13,7 +13,7 @@ def parse_args():
     '''
     parser = argparse.ArgumentParser(description="Classifying images with and without tomatoes.")
 
-    parser.add_argument('--rescale', type='float', nargs='?', default=1.0/255,
+    parser.add_argument('--rescale', type=float, nargs='?', default=1.0/255,
                         help='Rescaling factor.')
 
     parser.add_argument('--train_sample_per_epoch', type=int, nargs='?', default=552,
