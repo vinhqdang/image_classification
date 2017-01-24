@@ -93,7 +93,7 @@ if __name__ == "__main__":
     model.add(Dense(1, W_regularizer=l2(args.l2), activity_regularizer=activity_l2(args.l2)))
     model.add(Activation('sigmoid'))
 
-    metrics = [args.metrics.split(',')]
+    metrics = args.metrics.split(',')
 
     model.compile(loss=args.loss,
                   optimizer=args.optimizer,
