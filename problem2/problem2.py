@@ -5,7 +5,7 @@ from keras.models import Sequential
 from keras.layers import Convolution2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.regularizers import l2, activity_l2, l1, activity_l1
-from keras.utils.visualize_util import plot
+# from keras.utils.visualize_util import plot
 
 def parse_args():
     '''
@@ -44,7 +44,7 @@ def parse_args():
                         help='Batch size')
 
     parser.add_argument('--plot', nargs='?', default='model.png',
-                        help='Output plot file name')
+                        help='Output plot file name. Temporary disabled.')
 
     return parser.parse_args()
 
@@ -109,5 +109,5 @@ if __name__ == "__main__":
             validation_data=validation_generator,
             nb_val_samples=args.test_sample_per_epoch)
 
-    # save model plot
-    plot(model, to_file=args.plot)
+    # # save model plot
+    # plot(model, to_file=args.plot)
