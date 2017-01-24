@@ -49,7 +49,7 @@ def parse_args():
     parser.add_argument('--l2', type=float, nargs='?', default=0.0001,
                         help='l2 regularization.')
 
-    parser.add_argument('--metrics', nargs='?', default='accuracy,fmeasure,precision,recall,binary_crossentropy',
+    parser.add_argument('--metrics', nargs='?', default='accuracy,fmeasure,precision,recall',
                         help='Metric used to evaluate the method.')
 
     parser.add_argument('--loss', nargs='?', default='binary_crossentropy',
