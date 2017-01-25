@@ -106,8 +106,8 @@ if __name__ == "__main__":
     train_datagen = ImageDataGenerator(
             rescale=args.rescale,
             rotation_range=90,
-            width_shift_range=0.2,
-            height_shift_range=0.2,
+            # width_shift_range=0.2,
+            # height_shift_range=0.2,
             shear_range=0.2,
             zoom_range=0.2,
             horizontal_flip=True)
