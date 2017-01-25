@@ -52,10 +52,10 @@ def parse_args():
     parser.add_argument('--metrics', nargs='?', default='accuracy,fmeasure,precision,recall',
                         help='Metric used to evaluate the method.')
 
-    parser.add_argument('--loss', nargs='?', default='binary_crossentropy',
+    parser.add_argument('--loss', nargs='?', default='mse', #binary_crossentropy ...
                         help='Objective function.')
 
-    parser.add_argument('--optimizer', nargs='?', default='rmsprop',
+    parser.add_argument('--optimizer', nargs='?', default='sgd',    #rmsprop...
                         help='Optimization method.')
 
     parser.add_argument('--class_weight', type=float, nargs='?', default=19,
