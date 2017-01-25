@@ -61,6 +61,9 @@ def parse_args():
     parser.add_argument('--class_weight', type=float, nargs='?', default=19,
                         help='Weight of first class')
 
+    parser.add_argument('--log_file', nargs='?', default='log.txt',
+                        help='Log file for training loss and other metrics.')
+
     parser.add_argument('--plot', nargs='?', default='model.png',
                         help='Output plot file name.')
 
@@ -130,13 +133,16 @@ if __name__ == "__main__":
 
     # to deal with imbalanced dataset
     class_weight = {0:1,1:args.class_weight}
-    model.fit_generator(
+    fit = model.fit_generator(
             train_generator,
             samples_per_epoch=args.train_sample_per_epoch,
             nb_epoch=args.epoch,
             validation_data=validation_generator,
             nb_val_samples=args.test_sample_per_epoch,
             class_weight=class_weight)
+
+    with open (args.log_file, "w") as f:
+        f.write (fit.history)
 
     # save model plot
     plot(model, to_file=args.plot)
